@@ -1,6 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
 #include "linkedList.h"
+
 void initList(List *l){
     *l = NULL;
 }
@@ -42,12 +41,12 @@ int isEmpty(List l){
 }
 
 void displayList(List l){
+    
     if(l == NULL)
         return;
-    
     Node *p = l;
     while(p){
-        printf("%c",p->data);
+        printf("%c",p -> data);
         if(p->next)
             printf(" -> ");
         p = p -> next;

@@ -10,3 +10,12 @@ typedef struct Infix{
 void initInfixList(Infix *infix, int size);
 void createInfix(Infix *infix, List l);
 void displayInfix(Infix infix);
+
+typedef struct Postfix{
+    List * next;
+    int count;
+}Postfix;
+
+void initPostfixList(Postfix *postfix, int size);
+void createPostfix(Postfix *postfix, List l);
+void displayPostfix(Postfix postfix);

@@ -16,3 +16,18 @@ void displayInfix(Infix infix){
         displayNumber( infix.next[i]);
 
 }
+
+
+
+
+
+
+
+void initPostfixList(Postfix *postfix, int size){
+    postfix -> next = (List *) malloc (sizeof( List *) * size);
+    postfix -> count = 0;
+return;
+}
+
+void createPostfix(Postfix *postfix, List l);
+void displayPostfix(Postfix postfix);

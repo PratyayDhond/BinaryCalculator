@@ -43,13 +43,16 @@ Postfix createPostfix(Infix infix){
     initStackOfList(&temp, infix.count);
     Postfix postfix;
     initPostfixList(&postfix,infix.count);
-
+    printf("%d",infix.count);
     for(int i = 0; i < infix.count; i++){
         if(isdigit(infix.next[i]->data)){
+            perror("Line 49");
             pushToPostfix(&postfix,infix.next[i]);
         }else if(infix.next[i]->data == '('){
+            perror("Line 51");
             pushToStackOfList(&temp,infix.next[i]);
         }else if(infix.next[i]-> data == ')'){
+            perror("Line 53");
             List tempList;
             while((tempList = popFromStackOfList(&temp))->data != '('){
                 pushToPostfix(&postfix, tempList);
@@ -58,10 +61,12 @@ Postfix createPostfix(Infix infix){
             while(priority(temp.arr[temp.top]) >= priority(infix.next[i])){
                 pushToPostfix(&postfix, popFromStackOfList(&temp) );
             }
+            perror("Line 61");
             pushToStackOfList(&temp,infix.next[i]);
         }
     }
         while(temp.top != -1){
+            perror("Line 65");
             pushToPostfix(&postfix, popFromStackOfList(&temp));
         }
     return postfix;

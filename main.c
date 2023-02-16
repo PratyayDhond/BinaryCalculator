@@ -43,7 +43,7 @@ int main(){
     // initList(&l);
     // char input[100];
     // scanf("%s",input);
-    char* input = "123456789 + 34567890876 - 51764691 * 21681568174 ** 69 * (169 + 124123)";
+    char* input = "123456789 + 34567890876 - 51764691 * 21681568174 ** 69 * (169 + 124123 * 1124124 + 1576914)";
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
     List l[numberOfLists];
@@ -122,7 +122,7 @@ int main(){
     // }
 
     displayInfix(infix);
-
+    printf("\n");
     
 
     

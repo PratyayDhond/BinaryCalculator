@@ -28,9 +28,9 @@ return;
 }
 
 int priority(List l){
-    if(l -> next != NULL)
-        return 3;
     char x = l -> data;
+    if(x == '^')
+        return 3;
     if(x == '*' || x == '/' || x =='%')
         return 2;
     if(x == '+' || x == '-')
@@ -38,7 +38,7 @@ int priority(List l){
     return 0;
 }
 
-Postfix* createPostfix(Infix infix, List l){
+Postfix createPostfix(Infix infix){
     StackOfList temp;
     initStackOfList(&temp, infix.count);
     Postfix postfix;
@@ -46,20 +46,25 @@ Postfix* createPostfix(Infix infix, List l){
 
     for(int i = 0; i < infix.count; i++){
         if(isdigit(infix.next[i]->data)){
-            //BOOKMARK
-            perror("It is a digit");
             pushToPostfix(&postfix,infix.next[i]);
         }else if(infix.next[i]->data == '('){
             pushToStackOfList(&temp,infix.next[i]);
         }else if(infix.next[i]-> data == ')'){
             List tempList;
             while((tempList = popFromStackOfList(&temp))->data != '('){
-                //BOOKMARK
-                displayList(tempList);
                 pushToPostfix(&postfix, tempList);
             }  
+        }else{
+            while(priority(temp.arr[temp.top]) >= priority(infix.next[i])){
+                pushToPostfix(&postfix, popFromStackOfList(&temp) );
+            }
+            pushToStackOfList(&temp,infix.next[i]);
         }
     }
+        while(temp.top != -1){
+            pushToPostfix(&postfix, popFromStackOfList(&temp));
+        }
+    return postfix;
 }
 
 void pushToPostfix(Postfix *postfix, List l){
@@ -68,4 +73,8 @@ return;
 }
 
 
-void displayPostfix(Postfix postfix);
+void displayPostfix(Postfix postfix){
+    for(int i = 0; i < postfix.count ; i++){
+        displayNumber(postfix.next[i]);
+    }        
+}

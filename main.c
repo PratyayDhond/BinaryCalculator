@@ -13,9 +13,7 @@ int getNumberOfLists(char * str){
     if(isdigit(str[0]))
         count++; 
     while(*p != '\0'){
-        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%'){
-            if(*p == '*' && *(p+1) == '*')
-                p++;
+        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '^'){
             count++;
         }    
         p++;
@@ -28,9 +26,7 @@ int getNumberOfOperators(char * input){
     char *p = input;
 
     while(*p != '\0'){
-        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')'){
-            if(*p == '*' && *(p+1) == '*')
-                p++;
+        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^'){
             count++;
         }
         p++;
@@ -43,7 +39,7 @@ int main(){
     // initList(&l);
     // char input[100];
     // scanf("%s",input);
-    char* input = "123456789 + 34567890876 - 51764691 * 21681568174 ** 69 * (169 + 124123 * 1124124 + 1576914)";
+    char* input = "123456789 + 34567890876 - 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
     List l[numberOfLists];
@@ -124,6 +120,11 @@ int main(){
     displayInfix(infix);
     printf("\n");
     
+    Postfix postfix;
+    initPostfixList(&postfix,numberOfLists + numberOfOperators);
+    postfix = createPostfix(infix);
+    displayPostfix(postfix);
+    printf("\n");
 
     
     // StackOfList s;

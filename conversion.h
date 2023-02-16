@@ -17,5 +17,5 @@ typedef struct Postfix{
 }Postfix;
 
 void initPostfixList(Postfix *postfix, int size);
-Postfix* createPostfix(Infix infix, List l);
+Postfix createPostfix(Infix infix);
 void displayPostfix(Postfix postfix);

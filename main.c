@@ -1,5 +1,3 @@
-#include<stdio.h>
-#include<ctype.h>
 #include "conversion.h"
 
 int getSizeOfList(char * str){
@@ -25,66 +23,118 @@ int getNumberOfLists(char * str){
     return count;
 }
 
+int getNumberOfOperators(char * input){
+    int count = 0;
+    char *p = input;
+
+    while(*p != '\0'){
+        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')'){
+            if(*p == '*' && *(p+1) == '*')
+                p++;
+            count++;
+        }
+        p++;
+    }
+return count;
+}
+
 int main(){
     // List l;
     // initList(&l);
     // char input[100];
     // scanf("%s",input);
-    char* input = "123456789 + 34567890876 - 51764691 * 21681568174 ** 69";
+    char* input = "123456789 + 34567890876 - 51764691 * 21681568174 ** 69 * (169 + 124123)";
     int numberOfLists = getNumberOfLists(input);
+    int numberOfOperators = getNumberOfOperators(input);
     List l[numberOfLists];
-    List operators[numberOfLists - 1];
+    List operators[numberOfOperators];
     int j = 0;
    
    
     // Creating the lists as per the input given by the user
-    for(int i = 0; i < numberOfLists; i++){
-        initList(&l[i]);
+    char *p = input;
+    int operandIndex = 0;    
+    int operatorIndex = 0;
+    Infix infix;
+    initInfixList(&infix,numberOfLists + numberOfOperators);
 
-        // to avoid segmentation fault as size of Operators list is 1 less than that of operators
-        if(i < numberOfLists - 1)
-            initList(&operators[i]);
-        
-        while( isdigit(input[j]) )
-            pushFront(&l[i],input[j++]);
-        
-        while(!isdigit(input[j])){
-            if(i < numberOfLists-1){
-                // Skipping the 'Blank Spaces, by Taylor Swift' ;)
-                if(input[j] != ' ')
-                    pushFront(&operators[i], input[j]);        
+//errorgenous while loop
+    while(*p != '\0'){
+        if(isdigit(*p)){
+            initList(&l[operandIndex]);
+            while(isdigit(*p)){
+                char c = *p;
+                pushFront(&l[operandIndex], c);
+                p++;
             }
-            j++;
+            // displayNumber(l[operandIndex]);
+            createInfix(&infix, l[operandIndex]);
+            operandIndex++;
         }
-
-        // displayList(l[i]);
-        // displayList(operators[i]);
+        else{
+            initList(&operators[operatorIndex]);
+            while(!isdigit(*p)){
+                char c = *p;
+                // Skipping the 'Blank Spaces, by Taylor Swift' ;)
+                if(*p != ' ')
+                    pushFront(&operators[operatorIndex],c);        
+                p++;
+                if(*p == '\0')
+                    break;
+            }
+            // displayNumber(operators[operatorIndex]);
+            createInfix(&infix, operators[operatorIndex]);
+            operatorIndex++;
+        }
     }
+    
+    // for(int i = 0; i < numberOfLists; i++){
+    //     initList(&l[i]);
+
+    //     // to avoid segmentation fault as size of Operators list is 1 less than that of operators
+    //     if(i < numberOfLists - 1)
+    //         initList(&operators[i]);
+        
+    //     while( isdigit(input[j]) )
+    //         pushFront(&l[i],input[j++]);
+        
+    //     while(!isdigit(input[j])){
+    //         if(i < numberOfLists-1){
+    //             // Skipping the 'Blank Spaces, by Taylor Swift' ;)
+    //             if(input[j] != ' ')
+    //                 pushFront(&operators[i], input[j]);        
+    //         }
+    //         j++;
+    //     }
+
+    //     // displayList(l[i]);
+    //     // displayList(operators[i]);
+    // }
 
     
-    Infix infix;
-    initInfixList(&infix, numberOfLists *2 - 1);
-    for(int i = 0; i < numberOfLists; i++){
-        createInfix(&infix,l[i]);
-        if( i < numberOfLists - 1)
-            createInfix(&infix,operators[i]);
-    }
+    
+
+
+    // for(int i = 0; i < numberOfLists; i++){
+    //     createInfix(&infix,l[i]);
+    //     if( i < numberOfLists - 1)
+    //         createInfix(&infix,operators[i]);
+    // }
 
     displayInfix(infix);
 
     
 
     
-    StackOfList s;
-    initStackOfList(&s,numberOfLists * 2 - 1 );
-    printf("%d\n",s.size);
-    for( int i = 0; i < s.size; i++){
-        pushToStackOfList(&s,l[i]);
-        if( i < numberOfLists - 1)
-            pushToStackOfList(&s, operators[i]);
-    }
-
+    // StackOfList s;
+    // initStackOfList(&s,numberOfLists * 2 - 1 );
     // for( int i = 0; i < s.size; i++){
+    //     pushToStackOfList(&s,l[i]);
+    //     if( i < numberOfLists - 1)
+    //         pushToStackOfList(&s, operators[i]);
+    // }
+
+    // // for( int i = 0; i < s.size; i++){
     //     displayList(popFromStackOfList(&s));
     // }
 

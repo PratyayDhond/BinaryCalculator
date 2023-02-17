@@ -46,43 +46,45 @@ Postfix createPostfix(Infix infix){
     Postfix postfix;
     initPostfixList(&postfix,infix.count);
 
-    for(int i = 0; i < infix.count; i++){
+    for(int i = 0; i < infix.count ; i++){
         
-        if(isdigit(infix.next[i]->data)){
-            perror("Line 51 - Pushing to Postfix");
-            pushToPostfix(&postfix,infix.next[i]);
-        }else if(infix.next[i]->data == '('){
-            perror("Line 54 - Pushing operator to stack (");
-            pushToStackOfList(&temp,infix.next[i]);
-        }else if(infix.next[i]-> data == ')'){
-            List tempList = popFromStackOfList(&temp);
-            while(tempList && tempList -> data  != '('){
-                perror("Line 57 - pushing operator in the stack->top to postfix");
-                // if(tempList-> data != '(')
-                    pushToPostfix(&postfix, tempList);
-                tempList =  popFromStackOfList(&temp);
-                displayList(tempList);
-            }
-
-        }else{
-            // Added if condition to avoid checking priority of empty stack of operators 
-            if(temp.top == -1){
-               perror("Line 65 - pushing operator to stack");
-                pushToStackOfList(&temp,infix.next[i]);
-            }else{
-                perror("Line 68 - popping from stack till condition ");
-                char stackTop = temp.arr[temp.top]->data;
-                char current = infix.next[i]->data;
-                while( temp.top >= 0 && priority(stackTop) >= priority(current)){
-                    perror("Line 73 - pushing operator to postfix");
-                    List l =  popFromStackOfList(&temp);
-                    displayList(l);
-                    pushToPostfix(&postfix,l );
-                }
-                pushToStackOfList(&temp,infix.next[i]);
-            }
-        }
     }
+
+    // for(int i = 0; i < infix.count; i++){
+        
+    //     if(isdigit(infix.next[i]->data)){
+    //         perror("Line 51 - Pushing to Postfix");
+    //         pushToPostfix(&postfix,infix.next[i]);
+    //     }else if(infix.next[i]->data == '('){
+    //         perror("Line 54 - Pushing operator to stack (");
+    //         pushToStackOfList(&temp,infix.next[i]);
+    //     }else if(infix.next[i]-> data == ')'){
+    //         List tempList = popFromStackOfList(&temp);
+    //         while(tempList && tempList -> data  != '('){
+    //             perror("Line 57 - pushing operator in the stack->top to postfix");
+    //             // if(tempList-> data != '(')
+    //                 pushToPostfix(&postfix, tempList);
+    //             tempList =  popFromStackOfList(&temp);
+    //         }
+
+    //     }else{
+    //         // Added if condition to avoid checking priority of empty stack of operators 
+    //         if(temp.top == -1){
+    //            perror("Line 65 - pushing operator to stack");
+    //             pushToStackOfList(&temp,infix.next[i]);
+    //         }else{
+    //             perror("Line 68 - popping from stack till condition ");
+    //             char stackTop = temp.arr[temp.top]->data;
+    //             char current = infix.next[i]->data;
+    //             while( temp.top >= 0 && priority(stackTop) >= priority(current)){
+    //                 perror("Line 73 - pushing operator to postfix");
+    //                 List l =  popFromStackOfList(&temp);
+    //                 pushToPostfix(&postfix,l );
+    //             }
+    //             pushToStackOfList(&temp,infix.next[i]);
+    //         }
+    //     }
+    // }
 
         while(temp.top != -1){
             perror("Line 79");

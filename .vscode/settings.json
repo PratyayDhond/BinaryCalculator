@@ -15,6 +15,7 @@
         "istream": "c",
         "ranges": "c",
         "streambuf": "c",
-        "variant": "c"
+        "variant": "c",
+        "shared_mutex": "c"
     }
 }

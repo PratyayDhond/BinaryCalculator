@@ -16,7 +16,6 @@ void pushToStackOfList(StackOfList *s, List l){
     // }
     if( s->top < s->size - 1)
         s->arr[++s->top] = l;
-    
 return;
 }
 

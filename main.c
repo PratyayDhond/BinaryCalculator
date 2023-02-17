@@ -56,6 +56,9 @@ int main(){
 
 //errorgenous while loop
     while(*p != '\0'){
+        while(*p == ' ')
+            p++;
+
         if(isdigit(*p)){
             initList(&l[operandIndex]);
             while(isdigit(*p)){
@@ -69,15 +72,15 @@ int main(){
         }
         else{
             initList(&operators[operatorIndex]);
-            while(!isdigit(*p)){
+            // while(!isdigit(*p)){
                 char c = *p;
                 // Skipping the 'Blank Spaces, by Taylor Swift' ;)
-                if(*p != ' ')
                     pushFront(&operators[operatorIndex],c);        
                 p++;
-                if(*p == '\0')
-                    break;
-            }
+                // the below lines of codes were needed for the while loop, not needed any
+                // if(*p == '\0')
+                    // break;
+            // }
             // displayNumber(operators[operatorIndex]);
             createInfix(&infix, operators[operatorIndex]);
             operatorIndex++;
@@ -119,14 +122,14 @@ int main(){
 
     displayInfix(infix);
     printf("\n");
+   
     
     Postfix postfix;
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
     displayPostfix(postfix);
     printf("\n");
-
-    
+ 
     // StackOfList s;
     // initStackOfList(&s,numberOfLists * 2 - 1 );
     // for( int i = 0; i < s.size; i++){

@@ -62,3 +62,18 @@ void displayNumber(List l){
         printf("%c", l->data);
 return;
 }
+
+void reverseList(List *l){
+    Node * current = *l;
+    Node * previous = NULL;
+    Node * next = NULL;
+
+    while( current != NULL){
+        next = current->next;
+        current->next = previous;
+        previous = current;
+        current = next;
+    }
+    *l = previous;
+
+}

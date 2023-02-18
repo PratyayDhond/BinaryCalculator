@@ -128,6 +128,7 @@ int main(){
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
     displayPostfix(postfix);
+    evaluatePostfix(postfix);
     printf("\n");
  
     // StackOfList s;

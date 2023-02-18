@@ -118,17 +118,23 @@ List evaluatePostfix(Postfix postfix){
         
             switch(postfix.next[i] -> data){
                 case '^':
-                            // temp = toThePower
+                            temp = toThePower(num1,num2);
                             break;
                 case '*':
+                            temp = multiply(num1, num2);
                             break;
                 case '/':
+                            // add is list of zeroes function
+                            temp = divide(num1, num2);
                             break;
                 case '+':
+                            temp = add(num1, num2);
                             break;
                 case '-':
+                            temp = subtract(num1, num2);
                             break;
                 case '%':
+                            temp = mod(num1, num2);
                             break;
                 default :
                             printf("Incorrect operator detected. FORCE EXITTING!");

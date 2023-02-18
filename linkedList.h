@@ -14,9 +14,11 @@ typedef Node * List;
 
 void initList(List *l);
 void pushFront(List * l, char data);
+void reverseList(List *l);
 
 char popFront(List * l);
 int isEmpty(List l);
 
 void displayList(List l);
 void displayNumber(List l);
+

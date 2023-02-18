@@ -16,6 +16,7 @@
         "ranges": "c",
         "streambuf": "c",
         "variant": "c",
-        "shared_mutex": "c"
+        "shared_mutex": "c",
+        "binarycalculator.h": "c"
     }
 }

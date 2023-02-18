@@ -1,4 +1,10 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
 #include "linkedList.h"
+
+#endif
+
 
 void setScale(int n);
 Node * add(List l1, List l2);

@@ -1,4 +1,5 @@
 #include "conversion.h"
+#include "binaryCalculator.h"
 
 void initInfixList(Infix *infix, int size){
     infix -> next = (List *) malloc ( sizeof(List *) * size);
@@ -86,43 +87,6 @@ Postfix createPostfix(Infix infix){
         pushToPostfix(&postfix, popFromStackOfList(&temp));
     }
 
-    // for(int i = 0; i < infix.count; i++){
-        
-        
-    //     if(isdigit(infix.next[i]->data)){
-    //         perror("Line 51 - Pushing to Postfix");
-    //         pushToPostfix(&postfix,infix.next[i]);
-    //     }else if(infix.next[i]->data == '('){
-    //         perror("Line 54 - Pushing operator to stack (");
-    //         pushToStackOfList(&temp,infix.next[i]);
-    //     }else if(infix.next[i]-> data == ')'){
-    //         List tempList = popFromStackOfList(&temp);
-    //         while(tempList && tempList -> data  != '('){
-    //             perror("Line 57 - pushing operator in the stack->top to postfix");
-    //             // if(tempList-> data != '(')
-    //                 pushToPostfix(&postfix, tempList);
-    //             tempList =  popFromStackOfList(&temp);
-    //         }
-
-    //     }else{
-    //         // Added if condition to avoid checking priority of empty stack of operators 
-    //         if(temp.top == -1){
-    //            perror("Line 65 - pushing operator to stack");
-    //             pushToStackOfList(&temp,infix.next[i]);
-    //         }else{
-    //             perror("Line 68 - popping from stack till condition ");
-    //             char stackTop = temp.arr[temp.top]->data;
-    //             char current = infix.next[i]->data;
-    //             while( temp.top >= 0 && priority(stackTop) >= priority(current)){
-    //                 perror("Line 73 - pushing operator to postfix");
-    //                 List l =  popFromStackOfList(&temp);
-    //                 pushToPostfix(&postfix,l );
-    //             }
-    //             pushToStackOfList(&temp,infix.next[i]);
-    //         }
-    //     }
-    // }
-
     return postfix;
 }
 
@@ -137,4 +101,43 @@ void displayPostfix(Postfix postfix){
         displayNumber(postfix.next[i]); 
         printf(" ");
     }        
+}
+
+List evaluatePostfix(Postfix postfix){
+    List answer,temp;
+    initList(&answer);
+    initList(&temp);
+    StackOfList numbers;
+    initStackOfList(&numbers,postfix.count);
+    for(int i = 0; i < postfix.count; i++){
+        if(isdigit(postfix.next[i]->data)){
+            pushToStackOfList(&numbers,postfix.next[i]);
+        }else{
+            List num2 = popFromStackOfList(&numbers);
+            List num1 = popFromStackOfList(&numbers);
+        
+            switch(postfix.next[i] -> data){
+                case '^':
+                            // temp = toThePower
+                            break;
+                case '*':
+                            break;
+                case '/':
+                            break;
+                case '+':
+                            break;
+                case '-':
+                            break;
+                case '%':
+                            break;
+                default :
+                            printf("Incorrect operator detected. FORCE EXITTING!");
+                            return NULL;
+                            break;
+            }
+
+        }
+    }
+
+    return answer;   
 }

@@ -101,33 +101,6 @@ void displayPostfix(Postfix postfix){
         displayNumber(postfix.next[i]); 
         printf(" ");
     }
-    printf("\n");
-    displayNumber(postfix.next[0]);
-    printf(" + ");
-    displayNumber(postfix.next[1]);
-    printf(" = ");
-    displayNumber(add(postfix.next[0],postfix.next[1])) ;
-
-       printf("\n");
-    displayNumber(postfix.next[3]);
-    printf(" + ");
-    displayNumber(postfix.next[4]);
-    printf(" = ");
-    displayNumber(add(postfix.next[3],postfix.next[4])) ;
-
-       printf("\n");
-    displayNumber(postfix.next[4]);
-    printf(" + ");
-    displayNumber(postfix.next[5]);
-    printf(" = ");
-    displayNumber(add(postfix.next[4],postfix.next[5])) ;
-
-       printf("\n");
-    displayNumber(postfix.next[8]);
-    printf(" + ");
-    displayNumber(postfix.next[9]);
-    printf(" = ");
-    displayNumber(add(postfix.next[8],postfix.next[9])) ;
 }
 
 List evaluatePostfix(Postfix postfix){

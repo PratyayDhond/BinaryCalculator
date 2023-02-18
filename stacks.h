@@ -11,3 +11,4 @@ void initStackOfList(StackOfList *s, int size);
 void pushToStackOfList(StackOfList *s, List l);
 int isEmptyStackOfList(StackOfList s);
 List popFromStackOfList(StackOfList *s);
+List peekFromStackOfList(StackOfList s);

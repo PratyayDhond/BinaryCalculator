@@ -19,6 +19,13 @@ void pushToStackOfList(StackOfList *s, List l){
 return;
 }
 
+List peekFromStackOfList(StackOfList s){
+    if(s.top == -1)
+        return NULL;
+    else
+        return s.arr[s.top];
+}
+
 List popFromStackOfList(StackOfList *s){
     if(s == NULL)   
         return NULL;

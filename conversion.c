@@ -30,6 +30,12 @@ void initPostfixList(Postfix *postfix, int size){
 return;
 }
 
+int isOperator(char x){
+    if( x == '^' || x == '*' || x == '/' || x == '+' || x == '-' || x == '%')
+        return true;
+    return false;
+}
+
 int priority(char x){
     if(x == '^')
         return 3;
@@ -47,10 +53,41 @@ Postfix createPostfix(Infix infix){
     initPostfixList(&postfix,infix.count);
 
     for(int i = 0; i < infix.count ; i++){
-        
+        if(isdigit(infix.next[i]->data)){
+            pushToPostfix(&postfix,infix.next[i]);
+        }else if(infix.next[i] -> data == '('){
+            pushToStackOfList(&temp, infix.next[i]);
+        }else if(infix.next[i] -> data == ')'){
+            List tempList = popFromStackOfList(&temp);
+            while(tempList && tempList -> data != '('){
+                pushToPostfix(&postfix,tempList);
+                tempList = popFromStackOfList(&temp);
+            }
+            // printf("%c\n",tempList ->data);
+        }else if(isOperator(infix.next[i]->data)){
+            if(isEmptyStackOfList(temp)){
+                pushToStackOfList(&temp,infix.next[i]);
+            }else{
+                if(priority(infix.next[i]->data) > priority(peekFromStackOfList(temp) -> data)){
+                    pushToStackOfList(&temp, infix.next[i]);
+                }else if( priority(infix.next[i] -> data) == priority(peekFromStackOfList(temp)->data && infix.next[i] -> data == '^')){
+                    pushToStackOfList(&temp, infix.next[i]);
+                }else{
+                    while(!isEmptyStackOfList(temp) && priority(infix.next[i] -> data) <= priority(peekFromStackOfList(temp) -> data)){
+                        pushToPostfix(&postfix, popFromStackOfList(&temp));
+                    }
+                    pushToStackOfList(&temp, infix.next[i]);
+                }
+            }
+        }
+    }
+
+    while(!isEmptyStackOfList(temp)){
+        pushToPostfix(&postfix, popFromStackOfList(&temp));
     }
 
     // for(int i = 0; i < infix.count; i++){
+        
         
     //     if(isdigit(infix.next[i]->data)){
     //         perror("Line 51 - Pushing to Postfix");
@@ -86,10 +123,6 @@ Postfix createPostfix(Infix infix){
     //     }
     // }
 
-        while(temp.top != -1){
-            perror("Line 79");
-            pushToPostfix(&postfix, popFromStackOfList(&temp));
-        }
     return postfix;
 }
 

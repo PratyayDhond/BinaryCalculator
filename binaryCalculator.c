@@ -18,10 +18,66 @@ int isZero(List l){
 }
 
 Node * add(List l1, List l2){
+    if(l1 == NULL && l2 == NULL)
+        return NULL;
+    else if(l1 == NULL)
+        return l2;
+    else
+        return l1;
+    
+    List ans;
+    initList(&ans);
+
+    Node *p = l1;
+    Node *q = l2;
+    int carry = 0,a,b;
+    
+    while(p && q){
+        a = p->data - '0';
+        b = q->data - '0';
+
+        pushFront(&ans, (char)((a + b + carry) % 10));
+        if(a+b+carry > 9)
+            carry = 1;
+        else
+            carry = 0;
+
+        p = p -> next;
+        q = q -> next;
+    }
+    
+    while(p){
+        pushFront(&ans, (char)p->data);
+        p = p -> next;
+    }
+
+    while(q){
+        pushFront(&ans, (char)q->data);
+        q = q -> next;
+    }
+
+    reverseList(&ans);
+
+    return ans;
 
 }
 
 Node * subtract(List l1, List l2){
+    if(l1 == NULL && l2 == NULL)
+        return NULL;
+    else if(l1 == NULL)
+        return l2;
+    else
+        return l1;
+    
+    List ans;
+    initList(&ans);
+
+    Node *p = l1;
+    Node *q = l2;
+    int borrow = 0,a,b;
+    
+
 
 }
 

@@ -141,7 +141,7 @@ List evaluatePostfix(Postfix postfix){
                             return NULL;
                             break;
             }
-
+//push to stacck of numbers temp
         }
     }
 

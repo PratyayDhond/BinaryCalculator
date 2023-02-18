@@ -20,11 +20,11 @@ int isZero(List l){
 Node * add(List l1, List l2){
     if(l1 == NULL && l2 == NULL)
         return NULL;
-    else if(l1 == NULL)
-        return l2;
-    else
-        return l1;
     
+    if(l1 == NULL)
+        return l2;
+    else if( l2 == NULL)
+        return l1;
     List ans;
     initList(&ans);
 
@@ -35,8 +35,7 @@ Node * add(List l1, List l2){
     while(p && q){
         a = p->data - '0';
         b = q->data - '0';
-
-        pushFront(&ans, (char)((a + b + carry) % 10));
+        pushFront(&ans, ((a + b + carry) % 10) + '0');
         if(a+b+carry > 9)
             carry = 1;
         else
@@ -45,14 +44,27 @@ Node * add(List l1, List l2){
         p = p -> next;
         q = q -> next;
     }
-    
+
     while(p){
-        pushFront(&ans, (char)p->data);
+        a = p -> data - '0';
+
+        pushFront(&ans, ((a + carry) % 10) + '0');
+        if( a + carry > 9)
+            carry = 1;
+        else
+            carry = 0;
         p = p -> next;
     }
 
     while(q){
-        pushFront(&ans, (char)q->data);
+        a = q -> data - '0';
+
+        pushFront(&ans, ((a + carry) % 10) + '0');
+        if( a + carry > 9)
+            carry = 1;
+        else
+            carry = 0;
+            
         q = q -> next;
     }
 

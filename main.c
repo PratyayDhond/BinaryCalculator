@@ -86,7 +86,7 @@ int main(){
             operatorIndex++;
         }
     }
-    
+
     // for(int i = 0; i < numberOfLists; i++){
     //     initList(&l[i]);
 
@@ -128,7 +128,7 @@ int main(){
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
     displayPostfix(postfix);
-    evaluatePostfix(postfix);
+    // evaluatePostfix(postfix);
     printf("\n");
  
     // StackOfList s;

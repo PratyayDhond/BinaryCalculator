@@ -10,6 +10,9 @@ typedef struct Node{
     struct Node * next;
 }Node;
 
+// for list of numbers the first bit indicated the number's sign
+// 1 is positive
+// 0 is negative
 typedef Node * List;
 
 void initList(List *l);

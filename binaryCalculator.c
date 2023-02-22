@@ -79,7 +79,7 @@ Node * subtract(List l1, List l2){
         return NULL;
     else if(l1 == NULL)
         return l2;
-    else
+    else if(l2 == NULL)
         return l1;
     
     List ans;
@@ -88,6 +88,46 @@ Node * subtract(List l1, List l2){
     Node *p = l1;
     Node *q = l2;
     int borrow = 0,a,b;
+
+    while(p && q){
+        a = p->data - '0';
+        b = q->data - '0';
+        pushFront(&ans, ((a - b - borrow) % 10) + '0');
+        if(a-b-borrow < 0)
+            borrow = 1;
+        else
+            borrow = 0;
+
+        p = p -> next;
+        q = q -> next;
+    }
+
+    while(p){
+        a = p -> data - '0';
+
+        pushFront(&ans, ((a - borrow) % 10) + '0');
+        if( a - borrow < 0)
+            borrow = 1;
+        else
+            borrow = 0;
+        p = p -> next;
+    }
+
+    while(q){
+        a = q -> data - '0';
+
+        // pushFront(&ans, ((a - borrow) % 10) + '0');
+        // if( a - borrow < 0)
+            // borrow = 1;
+        // else
+            // borrow = 0;
+            
+        q = q -> next;
+    }
+
+    reverseList(&ans);
+
+    return ans;    
     
 
 

@@ -2,6 +2,7 @@
 
 void initList(List *l){
     *l = NULL;
+return;
 }
 
 Node* createNewNode(char data){
@@ -13,7 +14,11 @@ Node* createNewNode(char data){
 
 void pushFront(List * l, char data){
     if(*l == NULL){
-        *l = createNewNode(data);
+        if(isdigit(data)){
+            *l = createNewNode('1'); // initializing to positive
+            (*l)->next = createNewNode(data);
+        }else
+            *l = createNewNode(data);
         return;
     }
 

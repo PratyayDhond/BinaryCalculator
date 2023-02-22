@@ -16,15 +16,18 @@ void pushFront(List * l, char data){
     if(*l == NULL){
         if(isdigit(data)){
             *l = createNewNode('1'); // initializing to positive
-            (*l)->next = createNewNode(data);
-        }else
+            pushFront(l,data);
+            // (*l)->next = createNewNode(data);
+            return;
+        }
             *l = createNewNode(data);
+
         return;
     }
-
+    Node * p = *l;
     Node * nn = createNewNode(data);
-    nn->next = *l;
-    *l = nn;
+    nn->next = p -> next;
+    p->next = nn;
 return;
 }
 

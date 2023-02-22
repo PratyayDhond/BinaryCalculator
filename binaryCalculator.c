@@ -1,4 +1,7 @@
 #include "binaryCalculator.h"
+#define POSITIVE 1
+#define NEGATIVE 0
+
 
 int scale = 0;
 List ans;
@@ -6,6 +9,16 @@ List ans;
 void setScale(int n){
     scale = n;
 }
+
+int fetchSign(List l){
+    Node * p = l;
+    while(p->next)
+        p = p -> next;
+    if(p->data == '1')
+        return POSITIVE;
+    else 
+        return NEGATIVE;
+}   
 
 int isZero(List l){
     Node *p = l;
@@ -25,11 +38,20 @@ Node * add(List l1, List l2){
         return l2;
     else if( l2 == NULL)
         return l1;
+
+    if(l1->next == NULL && l2->next == NULL)
+        return NULL;
+    
+    if(l1->next == NULL)
+        return l2;
+    else if( l2->next == NULL)
+        return l1;    
+
     List ans;
     initList(&ans);
 
-    Node *p = l1;
-    Node *q = l2;
+    Node *p = l1->next;
+    Node *q = l2->next;
     int carry = 0,a,b;
     
     while(p && q){
@@ -47,7 +69,6 @@ Node * add(List l1, List l2){
 
     while(p){
         a = p -> data - '0';
-
         pushFront(&ans, ((a + carry) % 10) + '0');
         if( a + carry > 9)
             carry = 1;
@@ -67,8 +88,7 @@ Node * add(List l1, List l2){
             
         q = q -> next;
     }
-
-    reverseList(&ans);
+    reverseList(&ans->next);
 
     return ans;
 

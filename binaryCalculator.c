@@ -30,6 +30,23 @@ int isZero(List l){
     return true;
 }
 
+void comp(List l1, List l2, int * greater){
+    if(l1 == NULL)
+        return;
+        comp(l1->next,l2->next,greater);
+        if(*greater == 0)
+            if(l1->data > l2->data)
+                *greater = 1;
+            else if( l2->data > l1 -> data)
+                *greater = -1;
+}
+
+int compareNumbers(List l1,List l2){
+    int greater = 0;
+    comp(l1->next,l2->next,&greater);
+    return greater;
+}
+
 Node * add(List l1, List l2){
     if(l1 == NULL && l2 == NULL)
         return NULL;
@@ -88,10 +105,23 @@ Node * add(List l1, List l2){
             
         q = q -> next;
     }
+     q = ans -> next;
+    if(carry == 1)
+        pushFront(&ans,carry + '0');
+
+// alternative but O(n) approach for appending the carry
+    // while(carry == 1){
+    //     a = q -> data - '0';
+    //     pushFront(&ans, ((a + carry) % 10) + '0');
+    //     if(a + carry > 9)
+    //         carry = 1;
+    //     else 
+    //         carry = 0;
+    // }
+
     reverseList(&ans->next);
 
     return ans;
-
 }
 
 Node * subtract(List l1, List l2){
@@ -105,52 +135,100 @@ Node * subtract(List l1, List l2){
     List ans;
     initList(&ans);
 
-    Node *p = l1;
-    Node *q = l2;
-    int borrow = 0,a,b;
+    Node *p = l1->next;
+    Node *q = l2->next;
+    char signL1 = l1 -> data == '1' ? '+' : '-';
+    char signL2 = l2 -> data == '1' ? '+' : '-';
+    int borrow = 0,a,b,current;
+
+    int lengthComp;
 
     while(p && q){
-        a = p->data - '0';
-        b = q->data - '0';
-        pushFront(&ans, ((a - b - borrow) % 10) + '0');
-        if(a-b-borrow < 0)
-            borrow = 1;
-        else
-            borrow = 0;
-
         p = p -> next;
         q = q -> next;
     }
+    if(p)
+        lengthComp = 1;
+    else if(q)
+        lengthComp = -1;
+    else 
+        lengthComp = 0;
 
-    while(p){
-        a = p -> data - '0';
+    p = l1->next;
+    q = l2->next;
+    // If the first number is greater than the second number
+    if(lengthComp == 1){
+        while(p && q){
+            a = p->data - '0';
+            b = q->data - '0';
 
-        pushFront(&ans, ((a - borrow) % 10) + '0');
-        if( a - borrow < 0)
-            borrow = 1;
+            // result of the current two digit's subtraction
+            current = (a - b - borrow);
+              if(a-b-borrow < 0)
+                borrow = 1;
+            else
+                borrow = 0;
+            if(borrow == 1)
+                current += 10;
+
+            pushFront(&ans, (current) + '0');
+            printf("%d %d %d %c\n",a,b,borrow,current + '0');
+
+            p = p -> next;
+            q = q -> next;            
+        }
+        while(p){
+            a = p -> data - '0';
+            pushFront(&ans, ((a - borrow)) + '0');
+            if( a - borrow < 0)
+                borrow = 1;
+            else
+                borrow = 0;
+            p = p -> next;
+        }
+        // reversing the list except the sign bit
+        reverseList(&ans -> next);
+        return ans;    
+    }else if(lengthComp == -1){
+        ans = subtract(l2,l1);
+        if(ans->data == '1')
+            ans ->data = '0';
         else
-            borrow = 0;
-        p = p -> next;
+            ans -> data = '1';
+        return ans;
+    }else{
+        // l1 > l2 when compareNumbers returns 1
+        if(compareNumbers(l1,l2) == 1){
+            while(p && q){
+                a = p->data - '0';
+                b = q->data - '0';
+
+                // result of the current two digit's subtraction
+                current = (a - b - borrow);
+                  if(a-b-borrow < 0)
+                    borrow = 1;
+                else
+                    borrow = 0;
+                if(borrow == 1)
+                    current += 10;
+
+                pushFront(&ans, (current) + '0');
+                printf("%d %d %d %c\n",a,b,borrow,current + '0');
+
+                p = p -> next;
+                q = q -> next;            
+            }
+            displayList(ans);
+            reverseList(&ans->next);
+            displayList(ans);
+            return ans;
+        }else{
+            ans = subtract(l2,l1);
+            ans -> data = ans -> data == '1' ? '0' : '1';
+            return ans;
+        }
+
     }
-
-    while(q){
-        a = q -> data - '0';
-
-        // pushFront(&ans, ((a - borrow) % 10) + '0');
-        // if( a - borrow < 0)
-            // borrow = 1;
-        // else
-            // borrow = 0;
-            
-        q = q -> next;
-    }
-
-    reverseList(&ans);
-
-    return ans;    
-    
-
-
 }
 
 Node * multiply(List l1, List l2){
@@ -196,14 +274,6 @@ Node * toThePower(List l1, List l2){
     }
     reverseList(&temp);
 
-
-    // printf("\n");
-    // displayList(l1);
-    // printf("l1\n");
-    // displayList(l2);
-    // printf("l2\n");
-    // displayList(temp);
-    // printf("temp\n");
     List subtractOne;
     initList(&subtractOne);
     pushFront(&subtractOne,'1');

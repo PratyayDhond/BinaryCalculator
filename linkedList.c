@@ -63,11 +63,28 @@ void displayList(List l){
 return;
 }
 
+void displayInReverse(List l){
+    if(l == NULL)
+            return;
+            displayInReverse(l->next);
+            printf("%c", l->data);
+    return;
+}
+
 void displayNumber(List l){
+// checking if the list is empty
     if(l == NULL)
         return;
-        displayNumber(l->next);
-        printf("%c", l->data);
+    else
+// checking if the list's next is empty which implies that the list is an operator
+        if(l ->next == NULL)
+            displayInReverse(l);
+        else{
+// checking if the list's next is not empty it means that it is and operand, so we skip the first bit which is the sign bit
+            if(l->data == '0')
+                printf("-");
+            displayInReverse(l->next);
+        }
 return;
 }
 

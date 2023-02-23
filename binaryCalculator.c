@@ -218,9 +218,9 @@ Node * subtract(List l1, List l2){
                 p = p -> next;
                 q = q -> next;            
             }
-            displayList(ans);
+            // displayList(ans);
             reverseList(&ans->next);
-            displayList(ans);
+            // displayList(ans);
             return ans;
         }else{
             ans = subtract(l2,l1);
@@ -234,8 +234,8 @@ Node * subtract(List l1, List l2){
 Node * multiply(List l1, List l2){
     initList(&ans);
     List temp;
-    Node *p = l2 -> next;
 
+    Node *p = l2 -> next;
     int count = 0;
     while(p){
     initList(&temp);
@@ -260,60 +260,74 @@ Node * multiply(List l1, List l2){
         p = p->next;
     }
 
-    
-    // List subtractOne;
-    // initList(&subtractOne);
-    // pushFront(&subtractOne,'1');
-
-    // Node * p = l1;
-    // while(p){
-    //     pushFront(&ans, p->data);
-    //     p = p -> next;
-    // }
-    // reverseList(&ans);
-    // subtract(l2,subtractOne);
-
-    // while(!isZero(l2)){
-    //     ans = add(ans,l1);
-    //     l2 = subtract(l2,subtractOne);
-    // }
-
+    if( l1 -> data != l2->data)
+        ans -> data = ans -> data == '1' ? '0' : '1';
     return ans;
 
 }
 
 Node * divide(List l1, List l2){
-
+    
 }
+
+void initTemp(List* temp,List l1){
+    initList(temp);
+    Node *q = l1->next;
+    while(q){
+        pushFront(temp,q->data);
+        q = q->next;
+    }
+    reverseList(temp);
+return;
+}
+
 
 Node * toThePower(List l1, List l2){
-    initList(&ans);
-    if(isZero(l2)){
-        pushFront(&ans, '1');
-        return ans;
-    }
-    List temp,temprev;
-    initList(&temp);
-
-    Node *p = l1;
-    while(p){
-        pushFront(&temp, p->data);
-        p = p -> next;
-    }
-    reverseList(&temp);
-
-    List subtractOne;
-    initList(&subtractOne);
-    pushFront(&subtractOne,'1');
-
-    while(!isZero(l2)){
-        ans = multiply(l1,temp);
-        l2 = subtract(l2,subtractOne);
-    }
-
-    return ans;   
-
+    return NULL;
 }
+
+// Node * toThePower(List l1, List l2){
+//     List result;
+//     initList(&result);
+//     Node *p = l2->next;
+//     int n; List temp;
+//     int count = 0;
+
+//     initTemp(&temp,l1);
+
+//     while(p){
+
+//         n = p->data - '0';
+
+//         if(n * (count* 10) == 0 && n != 0)
+//             n = n;
+//         else
+//             n = n * (count* 10);
+        
+//         for(int i = 1; i < n; i++){
+//             temp = multiply(temp,l1);
+//         }
+
+//         // for(int i = 0; i < count; i++)
+//             // pushFront(&temp,'0');
+//         displayList(temp);
+//         displayList(result);
+//         printf("\n\n\n");
+//         if(n == 0)
+//             result = add(result,NULL);
+//         else
+//             result = add(result,temp);
+//         count++;
+//         p = p -> next;  
+
+//         initTemp(&temp,l1);
+//     }
+//     reverseList(&result);
+//     reverseList(&result->next);
+//     displayList(result);
+//     return result;
+
+// }
 
 Node * mod(List l1, List l2){
 

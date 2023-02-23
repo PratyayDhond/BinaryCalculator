@@ -233,22 +233,50 @@ Node * subtract(List l1, List l2){
 
 Node * multiply(List l1, List l2){
     initList(&ans);
-    List subtractOne;
-    initList(&subtractOne);
-    pushFront(&subtractOne,'1');
+    List temp;
+    Node *p = l2 -> next;
 
-    Node * p = l1;
+    int count = 0;
     while(p){
-        pushFront(&ans, p->data);
-        p = p -> next;
-    }
-    reverseList(&ans);
-    subtract(l2,subtractOne);
+    initList(&temp);
+        int n = p -> data - '0';
+            // printf("\n%d\n",n);
+        for(int i = 0; i < n; i++){
+            temp =  add(temp,l1);
+            // displayList(temp);
+        }
 
-    while(!isZero(l2)){
-        ans = add(ans,l1);
-        l2 = subtract(l2,subtractOne);
+        // printf("-----------------------------------------------------");
+        for(int i = 0; i < count; i++)
+            pushFront(&temp,'0');
+        count++;
+
+        ans = add(ans,temp);
+        // printf("%d\n",n);
+        // displayList(ans);
+        // printf("\n");
+        // displayNumber(ans);
+        // printf("\n");
+        p = p->next;
     }
+
+    
+    // List subtractOne;
+    // initList(&subtractOne);
+    // pushFront(&subtractOne,'1');
+
+    // Node * p = l1;
+    // while(p){
+    //     pushFront(&ans, p->data);
+    //     p = p -> next;
+    // }
+    // reverseList(&ans);
+    // subtract(l2,subtractOne);
+
+    // while(!isZero(l2)){
+    //     ans = add(ans,l1);
+    //     l2 = subtract(l2,subtractOne);
+    // }
 
     return ans;
 

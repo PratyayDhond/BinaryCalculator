@@ -5,6 +5,21 @@ void initList(List *l){
 return;
 }
 
+void destroyList(Node * l){
+    // if(*l == NULL)
+        // return;
+    // Node *p = *l;
+    // if(p -> next == NULL){
+        // free(p);
+        // return;
+    // }    
+    // Node * temp;
+        // temp = p;
+        // p = p -> next;
+        // printf("%c %p\n", p->data, p->next);
+    // }
+}
+
 Node* createNewNode(char data){
     Node * nn = (Node*) malloc(sizeof(Node));
     nn -> data = data;

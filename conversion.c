@@ -102,10 +102,10 @@ void displayPostfix(Postfix postfix){
         printf(" ");
     }
 
-    // printf("\n");
-    // displayNumber(postfix.next[0]);
-    // printf("\n");
-    // displayNumber(postfix.next[1]);
+    printf("\n");
+    displayNumber(postfix.next[0]);
+    printf("\n");
+    displayNumber(postfix.next[1]);
     printf("\n");
     displayNumber(multiply(postfix.next[0], postfix.next[1]));
 }

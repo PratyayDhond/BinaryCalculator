@@ -39,7 +39,12 @@ int main(){
     // initList(&l);
     // char input[100];
     // scanf("%s",input);
-    char* input = " 50 * 50 - 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+
+    // char input[100] = "500 * 500 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    char input[100] = " 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    // char input[100] = "511 * 500 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    // char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
     List l[numberOfLists];

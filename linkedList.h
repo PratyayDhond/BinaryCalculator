@@ -16,6 +16,7 @@ typedef struct Node{
 typedef Node * List;
 
 void initList(List *l);
+void destroyList(List l);
 void pushFront(List * l, char data);
 void reverseList(List *l);
 

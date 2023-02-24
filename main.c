@@ -10,14 +10,35 @@ int getSizeOfList(char * str){
 int getNumberOfLists(char * str){
     char *p = str;
     int count = 0;
-    if(isdigit(str[0]))
-        count++; 
+    int isNumberFlag = false;
     while(*p != '\0'){
-        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '^'){
-            count++;
-        }    
+        if(isdigit(*p))
+            isNumberFlag = true;
+        else if(*p == ' '){
+            
+        }else{
+            if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^'){
+                count++;
+            }else{
+                printf("Incorrect Syntax! Invalid operator '%c' used\n",*p);
+                exit(0);
+            }
+        }
         p++;
     }
+    if(isNumberFlag == true)
+        count++;
+    
+    // char *p = str;
+    // int count = 0;
+    // if(isdigit(str[0]))
+    //     count++; 
+    // while(*p != '\0'){
+    //     if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '^'){
+    //         count++;
+    //     }    
+    //     p++;
+    // }
     return count;
 }
 
@@ -46,7 +67,7 @@ int main(){
     // char input[500] = "5000 * 0 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "5000 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "12345678909876543 * 765434567890098765 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    char input[100] = "34567890 * 567890- ^ 567 + 567890 / 5678 + 666 % 3";
+    char input[100] = "(34567890 * 567890 ^ 567 + 567890 / 5678 + 666) % 3";
     // char input[100] = "500 * 511 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = " 5 * 3 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
@@ -55,6 +76,11 @@ int main(){
     
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
+    if(numberOfLists <= numberOfOperators){
+        printf("Invalid Syntax Error! [More operators than operands used] \n");
+        exit(0);
+    }
+    
     List l[numberOfLists];
     List operators[numberOfOperators];
     int j = 0;
@@ -138,7 +164,7 @@ int main(){
     Postfix postfix;
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
-    // displayPostfix(postfix);
+    displayPostfix(postfix);
     printf("\n");
     displayNumber(evaluatePostfix(postfix));
     printf("\n");

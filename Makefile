@@ -1,3 +1,3 @@
 final:
-		gcc -g *.c  -o binaryCalculator
+		gcc -g *.c -o binaryCalculator -lm
 		./binaryCalculator "5 + 5"

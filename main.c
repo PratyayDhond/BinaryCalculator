@@ -34,12 +34,13 @@ int getNumberOfOperators(char * input){
 return count;
 }
 
+
+
 int main(){
     // List l;
     // initList(&l);
     // char input[100];
     // scanf("%s",input);
-
     // char input[100] = "20134 * 517 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "20134 * 517 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "0 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
@@ -49,14 +50,15 @@ int main(){
     // char input[100] = " 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "500 * 511 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    char input[100] = "21685 * 517 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    // char input[100] = " 2 * 3 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    // char input[100] = "11 * 10 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    char input[100] = "21685 * 577 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
     List l[numberOfLists];
     List operators[numberOfOperators];
     int j = 0;
-   
    
     // Creating the lists as per the input given by the user
     char *p = input;

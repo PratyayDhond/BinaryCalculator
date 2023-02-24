@@ -106,13 +106,13 @@ void displayPostfix(Postfix postfix){
     // displayNumber(postfix.next[0]);
     // printf("\n");
     // displayNumber(postfix.next[1]);
-    printf("\n");
+    printf("\n Addition : ");
     displayNumber(add(postfix.next[0], postfix.next[1]));
-    printf("\n");
+    printf("\n Subtraction : ");
     displayNumber(subtract(postfix.next[0], postfix.next[1]));
-    printf("\n");
+    printf("\n Multiplication : ");
     displayNumber(multiply(postfix.next[0], postfix.next[1]));
-    printf("\n");
+    printf("\n Division : ");
     displayNumber(divide(postfix.next[0], postfix.next[1]));
     printf("\n");
 }

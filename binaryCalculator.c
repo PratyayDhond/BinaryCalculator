@@ -6,6 +6,22 @@
 int scale = 0;
 List ans;
 
+void removeMSBZeroes(List *l){
+    reverseList(&(*l)->next);
+    
+    Node *p = (*l) -> next;
+    Node *q = (*l);
+    Node *temp;
+    while(p->data == '0' && p->next){
+        temp = p;
+        p = p -> next;
+        free(temp);
+        q->next = p;
+    }
+    reverseList(&(*l)->next);
+return;
+}
+
 void setScale(int n){
     scale = n;
 }
@@ -204,7 +220,6 @@ Node * subtract(List l1, List l2){
         while(p && q){
             a = p->data - '0';
             b = q->data - '0';
-
             // result of the current two digit's subtraction
             current = (a - b - borrow);
               if(a-b-borrow < 0)
@@ -213,6 +228,7 @@ Node * subtract(List l1, List l2){
                 borrow = 0;
             if(borrow == 1)
                 current += 10;
+            // printf("%d %d %d %d\n",a,b, borrow,current);
 
             pushFront(&ans, (current) + '0');
             p = p -> next;
@@ -220,15 +236,20 @@ Node * subtract(List l1, List l2){
         }
         while(p){
             a = p -> data - '0';
-            pushFront(&ans, ((a - borrow)) + '0');
+            current = ((a - borrow));
             if( a - borrow < 0)
                 borrow = 1;
             else
                 borrow = 0;
+            if(borrow == 1)
+                current += 10;
+            // printf("%d %d %d\n",a, borrow,current);
+            pushFront(&ans,current +'0');
             p = p -> next;
         }
         // reversing the list except the sign bit
         reverseList(&ans -> next);
+        removeMSBZeroes(&ans);
         return ans;    
     }else if(comparison == -1){
         ans = subtract(l2,l1);
@@ -267,12 +288,18 @@ Node * multiply(List l1, List l2){
 
     if( l1 -> data != l2->data)
         result -> data = result -> data == '1' ? '0' : '1';
+    
+    if(isZero(result)){
+        initList(&ans);
+        pushFront(&ans,'0');
+        return ans;
+    }
+    
     return result;
 
 }
 
 Node * divide(List l1, List l2){
-    
     if(l1 == NULL && l2 == NULL)
         return NULL;
     List ans;
@@ -285,26 +312,18 @@ Node * divide(List l1, List l2){
         printf("Error, cannot divide by zero!\n");
         exit(0);
     }
-    int comparison = compareNumbers(l1,l2);
-    printf("\n\ncomparison ->  %d\n",comparison);
 
+    int comparison = compareNumbers(l1,l2);
     char target = l1->data == '0' ? '1' : '0';
     List addOne;
     initList(&addOne);
     pushFront(&addOne,'1');
-    int count = 10;
     if(comparison == 1){
-
-      printf("L1 = ");
-            displayNumber(l1);
-            printf("\n");
-         while(l1->data != target && count){
+         while(l1->data != target){
             l1 = subtract(l1,l2);
-            displayNumber(l1);
-            printf("\n");
             ans = add(ans,addOne);
-            count--;
          }
+         ans = subtract(ans,addOne);
          return ans;   
     }else if(comparison == -1){        
         pushFront(&ans, '0');

@@ -120,6 +120,13 @@ Node * add(List l1, List l2){
     else if( l2->next == NULL)
         return l1;    
 
+    if(l1 -> data != l2->data){
+        if(l1 -> data == '0')
+            return subtract(l2,l1);
+        else
+            return subtract(l1,l2);
+    }
+
     Node *p = l1->next;
     Node *q = l2->next;
     int carry = 0,a,b;
@@ -409,19 +416,14 @@ Node * mod(List l1, List l2){
     int comparison = compareNumbers(l1,l2);
 
     if(comparison == 1){
-        int target;
-        if(l1 ->data = '1')
-            target = '0';
-        else
-            target = '1';
+        char target = l1 -> data == '0' ? '1' : '0';
 
         while(l1 -> data != target){
+            
             l1 = subtract(l1,l2);
         }
-        displayList(l1);
         l1 = add(l1,l2);
-        displayList(l1);
-
+    return l1;
     }else if(comparison == -1){
         Node * q = l1->next;
         while(q){

@@ -127,6 +127,7 @@ List evaluatePostfix(Postfix postfix){
     initList(&temp);
     StackOfList numbers;
     initStackOfList(&numbers,postfix.count);
+
     for(int i = 0; i < postfix.count; i++){
         if(isdigit(postfix.next[i]->data)){
             pushToStackOfList(&numbers,postfix.next[i]);

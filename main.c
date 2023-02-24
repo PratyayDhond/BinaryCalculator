@@ -14,10 +14,12 @@ int getNumberOfLists(char * str){
     while(*p != '\0'){
         if(isdigit(*p))
             isNumberFlag = true;
-        else if(*p == ' '){
-            
-        }else{
+        else{
             if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^'){
+                if(*(p+1) == '+' || *(p+1) == '-' || *(p+1) == '*' || *(p+1) == '/' || *(p+1) == '%' || *(p+1) == '(' || *(p+1) == ')' || *(p+1) == '^'){
+                    printf("Incorrect Syntax! More operators than required\n");
+                    exit(0);
+                }
                 count++;
             }else{
                 printf("Incorrect Syntax! Invalid operator '%c' used\n",*p);
@@ -67,7 +69,18 @@ int main(){
     // char input[500] = "5000 * 0 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "5000 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "12345678909876543 * 765434567890098765 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    char input[100] = "(34567890 * 567890 ^ 567 + 567890 / 5678 + 666) % 3";
+    // char input[100] = "34567890 * 567890 ^ 567 + 567890 / 5678 + 666 % 3";
+    char input[100];
+    int i = 0;
+    char c;
+    do{ 
+        scanf("%c",&c);
+        if( c == '\n')
+        input[i++] = '\0';
+        else if(c == ' '){
+        }else
+        input[i++] = c;
+    }while(c != '\n');
     // char input[100] = "500 * 511 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = " 5 * 3 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
@@ -76,6 +89,7 @@ int main(){
     
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
+    printf("%d %d\n",numberOfLists,numberOfOperators);
     if(numberOfLists <= numberOfOperators){
         printf("Invalid Syntax Error! [More operators than operands used] \n");
         exit(0);

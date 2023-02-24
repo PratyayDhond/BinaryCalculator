@@ -391,6 +391,48 @@ Node * toThePower(List l1, List l2){
 
 
 Node * mod(List l1, List l2){
+    if(l1 == NULL && l2 == NULL)
+        return NULL;
+    List result;
+    initList(&result);
 
+    if(l1 == NULL || isZero(l1)){
+        pushFront(&result,'0');
+        return result;
+    }
+
+    if(l2 == NULL || isZero(l2)){
+        printf("Error! Cannot perform modulo by Zero!");
+        exit(0);
+    }
+
+    int comparison = compareNumbers(l1,l2);
+
+    if(comparison == 1){
+        int target;
+        if(l1 ->data = '1')
+            target = '0';
+        else
+            target = '1';
+
+        while(l1 -> data != target){
+            l1 = subtract(l1,l2);
+        }
+        displayList(l1);
+        l1 = add(l1,l2);
+        displayList(l1);
+
+    }else if(comparison == -1){
+        Node * q = l1->next;
+        while(q){
+            pushFront(&result, q->data);
+            q = q -> next;
+        }
+        reverseList(&result -> next);
+    }else{
+        pushFront(&result,'0');
+        return result;
+    }
+return result;
 }
 

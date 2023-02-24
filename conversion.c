@@ -114,6 +114,8 @@ void displayPostfix(Postfix postfix){
     displayNumber(multiply(postfix.next[0], postfix.next[1]));
     printf("\n ToThePower : ");
     displayNumber(toThePower(postfix.next[0], postfix.next[1]));
+    printf("\n Mod : ");
+    displayNumber(mod(postfix.next[0], postfix.next[1]));
     printf("\n Division : ");
     displayNumber(divide(postfix.next[0], postfix.next[1]));
     printf("\n");

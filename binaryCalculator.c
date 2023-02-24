@@ -66,8 +66,16 @@ Node * add(List l1, List l2){
         return ans;
 
     }
-    else if( l2 == NULL)
-        return l1;
+    else if( l2 == NULL){
+        Node * p  = l1 -> next;
+        while(p){
+            pushFront(&ans, p->data);
+            p = p -> next;
+        }
+        reverseList(&ans->next);
+        ans->data = p -> data;
+        return ans;
+    }
 
     if(l1->next == NULL && l2->next == NULL)
         return NULL;

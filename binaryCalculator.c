@@ -21,7 +21,11 @@ int fetchSign(List l){
 }   
 
 int isZero(List l){
-    Node *p = l;
+    if(l == NULL)
+        return true;
+    if(l->next == NULL)
+        return true;
+    Node *p = l->next;
     while(p){
         if( p -> data != '0')
             return false;
@@ -44,6 +48,20 @@ void comp(List l1, List l2, int * greater){
 
 int compareNumbers(List l1,List l2){
     int greater = 0;
+
+    Node *p = l1;
+    Node *q = l2;
+
+    while(p && q){
+        p = p->next;
+        q = q->next;
+    }
+
+    if(p)
+        return 1;
+    if(q)
+        return -1;
+
     comp(l1->next,l2->next,&greater);
     return greater;
 }
@@ -145,37 +163,44 @@ Node * add(List l1, List l2){
 Node * subtract(List l1, List l2){
     if(l1 == NULL && l2 == NULL)
         return NULL;
-    else if(l1 == NULL)
-        return l2;
-    else if(l2 == NULL)
-        return l1;
-    
+
     List ans;
     initList(&ans);
+    
+    if(l1 == NULL || isZero(l1)){
+        Node *p = l2->next;
+        while(p){
+            pushFront(&ans,p->data);
+            p = p -> next;
+        }
+        int sign = l1->data;
+        if(l1 -> data == '1')
+            ans->data = '0';
+        else
+            ans->data = '1';
+        reverseList(&ans->next);
+        return ans;        
+    }
+    else if(l2 == NULL){
+        Node *p = l2->next;
+        while(p){
+            pushFront(&ans,p->data);
+            p = p -> next;
+        }
+        reverseList(&ans->next);
+        return ans;
+    }
+    
+
 
     Node *p = l1->next;
     Node *q = l2->next;
-    char signL1 = l1 -> data == '1' ? '+' : '-';
-    char signL2 = l2 -> data == '1' ? '+' : '-';
     int borrow = 0,a,b,current;
-
-    int lengthComp;
-
-    while(p && q){
-        p = p -> next;
-        q = q -> next;
-    }
-    if(p)
-        lengthComp = 1;
-    else if(q)
-        lengthComp = -1;
-    else 
-        lengthComp = 0;
-
+    int comparison = compareNumbers(l1,l2);
     p = l1->next;
     q = l2->next;
     // If the first number is greater than the second number
-    if(lengthComp == 1){
+    if(comparison == 1){
         while(p && q){
             a = p->data - '0';
             b = q->data - '0';
@@ -205,7 +230,7 @@ Node * subtract(List l1, List l2){
         // reversing the list except the sign bit
         reverseList(&ans -> next);
         return ans;    
-    }else if(lengthComp == -1){
+    }else if(comparison == -1){
         ans = subtract(l2,l1);
         if(ans->data == '1')
             ans ->data = '0';
@@ -213,35 +238,8 @@ Node * subtract(List l1, List l2){
             ans -> data = '1';
         return ans;
     }else{
-        // l1 > l2 when compareNumbers returns 1
-        if(compareNumbers(l1,l2) == 1){
-            while(p && q){
-                a = p->data - '0';
-                b = q->data - '0';
-
-                // result of the current two digit's subtraction
-                current = (a - b - borrow);
-                  if(a-b-borrow < 0)
-                    borrow = 1;
-                else
-                    borrow = 0;
-                if(borrow == 1)
-                    current += 10;
-
-                pushFront(&ans, (current) + '0');
-                printf("%d %d %d %c\n",a,b,borrow,current + '0');
-
-                p = p -> next;
-                q = q -> next;            
-            }
-            reverseList(&ans->next);
-            return ans;
-        }else{
-            ans = subtract(l2,l1);
-            ans -> data = ans -> data == '1' ? '0' : '1';
-            return ans;
-        }
-
+        pushFront(&ans,'0');
+        return ans;
     }
 }
 
@@ -256,26 +254,11 @@ Node * multiply(List l1, List l2){
         initList(&temp);
         int n = p -> data - '0';
         for(int i = 0; i < n; i++){
-            printf("count = %d | temp: ",count);
-            displayList(temp);
             temp =  add(temp,l1);
-            printf("After add : ");
-            displayList(temp);
-
         }
-        // temp = subtract(temp,l1);
-        printf("\n");
- 
-        printf("-----------------------------------------------------\n");
-
-        
-
         for(int i = 0; i < count; i++)
             if(count > 0)
                 pushFront(&temp,'0');   
-        printf("\n\nl1 : ");
-        displayList(l1);
-        printf("\n ");
         count++;
 
         result = add(result,temp);
@@ -289,38 +272,48 @@ Node * multiply(List l1, List l2){
 }
 
 Node * divide(List l1, List l2){
+    
     if(l1 == NULL && l2 == NULL)
         return NULL;
-    else if(l1 == NULL)
-        return l2;
-    else if(l2 == NULL)
-        return l1;
-    
     List ans;
     initList(&ans);
-
-    Node *p = l1->next;
-    Node *q = l2->next;
-    char signL1 = l1 -> data == '1' ? '+' : '-';
-    char signL2 = l2 -> data == '1' ? '+' : '-';
-    int borrow = 0,a,b,current;
-
-    int lengthComp;
-
-    while(p && q){
-        p = p -> next;
-        q = q -> next;
+    if(l1 == NULL || isZero(l1)){
+        pushFront(&ans, '0');
+        return ans;
     }
-    if(p)
-        lengthComp = 1;
-    else if(q)
-        lengthComp = -1;
-    else 
-        lengthComp = 0;
+    else if( l2 == NULL|| isZero(l2)){
+        printf("Error, cannot divide by zero!\n");
+        exit(0);
+    }
+    int comparison = compareNumbers(l1,l2);
+    printf("\n\ncomparison ->  %d\n",comparison);
 
-    p = l1->next;
-    q = l2->next;
+    char target = l1->data == '0' ? '1' : '0';
+    List addOne;
+    initList(&addOne);
+    pushFront(&addOne,'1');
+    int count = 10;
+    if(comparison == 1){
 
+      printf("L1 = ");
+            displayNumber(l1);
+            printf("\n");
+         while(l1->data != target && count){
+            l1 = subtract(l1,l2);
+            displayNumber(l1);
+            printf("\n");
+            ans = add(ans,addOne);
+            count--;
+         }
+         return ans;   
+    }else if(comparison == -1){        
+        pushFront(&ans, '0');
+        return ans;
+    }else{
+        pushFront(&ans, '1');
+        return ans;
+    }
+    return NULL;
 }
 
 void initTemp(List* temp,List l1){

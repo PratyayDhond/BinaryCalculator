@@ -188,6 +188,14 @@ Node * subtract(List l1, List l2){
     if(l1 == NULL && l2 == NULL)
         return NULL;
 
+    if(l1 == NULL){
+        if(l2 -> data == '0')
+            l2 -> data = '1';
+        else
+            l2 -> data = '0';
+        return l2;
+    }
+
     List ans;
     initList(&ans);
     
@@ -273,6 +281,10 @@ Node * subtract(List l1, List l2){
 }
 
 Node * multiply(List l1, List l2){
+
+    if(l1 == NULL || l2 == NULL)
+        return NULL;
+    
     List result;
     initList(&result);
     List temp;

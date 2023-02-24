@@ -42,14 +42,13 @@ int main(){
     // char input[100];
     // scanf("%s",input);
     // char input[100] = "20134 * 517 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = "20134 * 517 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "0 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "5000 * 0 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "5000 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[500] = "12345678909876543 * 765434567890098765 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = " 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    char input[100] = "34567890 * 567890- ^ 567 + 567890 / 5678 + 666 % 3";
     // char input[100] = "500 * 511 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
+    // char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = " 5 * 3 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "11 * 10 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     // char input[100] = "21685 * 577 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
@@ -139,20 +138,10 @@ int main(){
     Postfix postfix;
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
-    displayPostfix(postfix);
-    // evaluatePostfix(postfix);
+    // displayPostfix(postfix);
+    printf("\n");
+    displayNumber(evaluatePostfix(postfix));
     printf("\n");
  
-    // StackOfList s;
-    // initStackOfList(&s,numberOfLists * 2 - 1 );
-    // for( int i = 0; i < s.size; i++){
-    //     pushToStackOfList(&s,l[i]);
-    //     if( i < numberOfLists - 1)
-    //         pushToStackOfList(&s, operators[i]);
-    // }
-
-    // // for( int i = 0; i < s.size; i++){
-    //     displayList(popFromStackOfList(&s));
-    // }
-
+return 0;
 }

@@ -106,19 +106,19 @@ void displayPostfix(Postfix postfix){
     // displayNumber(postfix.next[0]);
     // printf("\n");
     // displayNumber(postfix.next[1]);
-    printf("\n Addition : ");
-    displayNumber(add(postfix.next[0], postfix.next[1]));
-    printf("\n Subtraction : ");
-    displayNumber(subtract(postfix.next[0], postfix.next[1]));
-    printf("\n Multiplication : ");
-    displayNumber(multiply(postfix.next[0], postfix.next[1]));
-    printf("\n ToThePower : ");
-    displayNumber(toThePower(postfix.next[0], postfix.next[1]));
-    printf("\n Mod : ");
-    displayNumber(mod(postfix.next[0], postfix.next[1]));
-    printf("\n Division : ");
-    displayNumber(divide(postfix.next[0], postfix.next[1]));
-    printf("\n");
+    // printf("\n Addition : ");
+    // displayNumber(add(postfix.next[0], postfix.next[1]));
+    // printf("\n Subtraction : ");
+    // displayNumber(subtract(postfix.next[0], postfix.next[1]));
+    // printf("\n Multiplication : ");
+    // displayNumber(multiply(postfix.next[0], postfix.next[1]));
+    // printf("\n ToThePower : ");
+    // displayNumber(toThePower(postfix.next[0], postfix.next[1]));
+    // printf("\n Mod : ");
+    // displayNumber(mod(postfix.next[0], postfix.next[1]));
+    // printf("\n Division : ");
+    // displayNumber(divide(postfix.next[0], postfix.next[1]));
+    // printf("\n");
 }
 
 List evaluatePostfix(Postfix postfix){
@@ -133,7 +133,6 @@ List evaluatePostfix(Postfix postfix){
         }else{
             List num2 = popFromStackOfList(&numbers);
             List num1 = popFromStackOfList(&numbers);
-        
             switch(postfix.next[i] -> data){
                 case '^':
                             temp = toThePower(num1,num2);
@@ -159,9 +158,9 @@ List evaluatePostfix(Postfix postfix){
                             return NULL;
                             break;
             }
-//push to stacck of numbers temp
+            pushToStackOfList(&numbers,temp);
         }
     }
 
-    return answer;   
+    return temp;   
 }

@@ -67,8 +67,9 @@ return count;
 
 
 int main(){
-    printf("ligtning-bc v1\n");
+    printf("lightning-bc v1\n");
     printf("Supported Operations | +,-,*,/,^,% |\n");
+    printf("Press \'ctrl + C\' to exit\n");
 
     // if (signal(SIGINT, &sighandler) == SIG_ERR) {
     //     fprintf(stderr, "Could not set signal handler\n");

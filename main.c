@@ -60,16 +60,9 @@ return count;
 
 
 int main(){
-    // List l;
-    // initList(&l);
-    // char input[100];
-    // scanf("%s",input);
-    // char input[100] = "20134 * 517 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[500] = "0 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[500] = "5000 * 0 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[500] = "5000 * 5000 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[500] = "12345678909876543 * 765434567890098765 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = "34567890 * 567890 ^ 567 + 567890 / 5678 + 666 % 3";
+    printf("ligtning-bc v1\n");
+    printf("Supported Operations | +,-,*,/,^,% |\n");
+    printf(">> ");
     char input[100];
     int i = 0;
     char c;
@@ -81,15 +74,9 @@ int main(){
         }else
         input[i++] = c;
     }while(c != '\n');
-    // char input[100] = "500 * 511 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = "517 * 2168 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = " 5 * 3 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = "11 * 10 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
-    // char input[100] = "21685 * 577 + 51764691 * 21681568174 ^ 69 * (169 + 124123 * 1124124 + 1576914)";
     
     int numberOfLists = getNumberOfLists(input);
     int numberOfOperators = getNumberOfOperators(input);
-    printf("%d %d\n",numberOfLists,numberOfOperators);
     if(numberOfLists <= numberOfOperators){
         printf("Invalid Syntax Error! [More operators than operands used] \n");
         exit(0);
@@ -106,6 +93,7 @@ int main(){
     Infix infix;
     initInfixList(&infix,numberOfLists + numberOfOperators);
 
+// Not errorgenous any more
 //errorgenous while loop
     while(*p != '\0'){
         while(*p == ' ')
@@ -178,7 +166,7 @@ int main(){
     Postfix postfix;
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
-    displayPostfix(postfix);
+    // displayPostfix(postfix);
     printf("\n");
     displayNumber(evaluatePostfix(postfix));
     printf("\n");

@@ -1,3 +1,7 @@
 final:
 		gcc -g *.c -o binaryCalculator -lm
-		./binaryCalculator "5 + 5"
+		./binaryCalculator
+
+clear:
+	cls
+	make final

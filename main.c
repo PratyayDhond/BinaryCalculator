@@ -1,4 +1,11 @@
 #include "conversion.h"
+#include<signal.h>
+
+int exitSignal = true;
+
+void sighandler(int){
+    exitSignal = false;
+}    
 
 int getSizeOfList(char * str){
     int size = 0;
@@ -62,8 +69,16 @@ return count;
 int main(){
     printf("ligtning-bc v1\n");
     printf("Supported Operations | +,-,*,/,^,% |\n");
-    printf(">> ");
+
+    // if (signal(SIGINT, &sighandler) == SIG_ERR) {
+    //     fprintf(stderr, "Could not set signal handler\n");
+    //     return EXIT_FAILURE;
+    // }
+
     char input[100];
+
+    while(exitSignal){
+    printf(">> ");
     int i = 0;
     char c;
     do{ 
@@ -127,49 +142,15 @@ int main(){
         }
     }
 
-    // for(int i = 0; i < numberOfLists; i++){
-    //     initList(&l[i]);
-
-    //     // to avoid segmentation fault as size of Operators list is 1 less than that of operators
-    //     if(i < numberOfLists - 1)
-    //         initList(&operators[i]);
-        
-    //     while( isdigit(input[j]) )
-    //         pushFront(&l[i],input[j++]);
-        
-    //     while(!isdigit(input[j])){
-    //         if(i < numberOfLists-1){
-    //             // Skipping the 'Blank Spaces, by Taylor Swift' ;)
-    //             if(input[j] != ' ')
-    //                 pushFront(&operators[i], input[j]);        
-    //         }
-    //         j++;
-    //     }
-
-    //     // displayList(l[i]);
-    //     // displayList(operators[i]);
-    // }
-
-    
-    
-
-
-    // for(int i = 0; i < numberOfLists; i++){
-    //     createInfix(&infix,l[i]);
-    //     if( i < numberOfLists - 1)
-    //         createInfix(&infix,operators[i]);
-    // }
-
-    displayInfix(infix);
-    printf("\n");
-    
+    // displayInfix(infix);
     Postfix postfix;
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
     // displayPostfix(postfix);
-    printf("\n");
+    printf("\n=");
     displayNumber(evaluatePostfix(postfix));
     printf("\n");
- 
+    }
+
 return 0;
 }

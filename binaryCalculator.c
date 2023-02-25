@@ -373,13 +373,17 @@ Node * toThePower(List l1, List l2){
     List result;
     initList(&result);
 
-    if(l1 == NULL || isZero(l1)){
-        pushFront(&result,'0');
-    }
 
     if(l2 == NULL || isZero(l2)){
         pushFront(&result,'1');
+        return result;
     }
+    
+    if(l1 == NULL || isZero(l1)){
+        pushFront(&result,'0');
+        return result;
+    }
+
 
     Node *p = l1 -> next;
     int count = 0;

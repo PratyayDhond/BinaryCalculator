@@ -1,6 +1,7 @@
 final:
-		gcc -g *.c -o binaryCalculator -lm
+	gcc -g *.c -o binaryCalculator
 		./binaryCalculator
+		cls
 
 clear:
 	cls

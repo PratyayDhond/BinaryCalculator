@@ -1,0 +1,14 @@
+
+
+#1 Update Mod function
+	1. Divide l1 by l2 and store the result in one list
+	2. Multiply the result from step 1 with step 2 and store in one list
+	3. Subtract the result from step 2 from the list 1
+	4. return the result of step 3
+
+#2 Update error handling
+	1. Make a character array in main and a error bool type variable, [Declare global array]
+	2. Update error variable whenever needed as well as the error code
+	3. any time the control is passed and error variable is true, keep returning NULL till main!
+	4. print error message and reset the error variable.
+

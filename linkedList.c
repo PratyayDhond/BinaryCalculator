@@ -6,6 +6,23 @@ return;
 }
 
 void destroyList(Node * l){
+    
+    if(l == NULL)
+        return;
+    if(l -> next == NULL)
+        free(l);
+    else{
+        Node *p = l;
+        Node *q = l->next;
+
+        while(q != NULL){
+            free(p);
+            p = q;
+            q = q->next;
+        }
+    }
+
+
     // if(*l == NULL)
         // return;
     // Node *p = *l;

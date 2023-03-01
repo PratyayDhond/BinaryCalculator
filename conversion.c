@@ -143,8 +143,9 @@ List evaluatePostfix(Postfix postfix){
                             break;
                 case '/':
                             // add is list of zeroes function
+                            // temp = divide(num1, num2);
                             temp = divide(num1, num2);
-                            break;
+                            break;  
                 case '+':
                             temp = add(num1, num2);
                             break;
@@ -159,6 +160,8 @@ List evaluatePostfix(Postfix postfix){
                             return NULL;
                             break;
             }
+            // destroyList(num1);
+            // destroyList(num1);   
             pushToStackOfList(&numbers,temp);
         }
     }

@@ -354,6 +354,7 @@ Node * divide(List l1, List l2){
         List remainder;
         initList(&tempDivident);
         int isFirstIteration = true;
+        int comparison;
         while(p){
             count = 0;
             // initList(&tempDivident);
@@ -363,9 +364,15 @@ Node * divide(List l1, List l2){
                 pushFront(&tempDivident,p->data);
                 q = q -> next;
                 p = p -> next;
-
-                if(compareNumbers(tempDivident,tempDivisor) == 1)
+                removeMSBZeroes(&tempDivident);
+                comparison = compareNumbers(tempDivident,tempDivisor);
+                if(comparison == 1){
                     break;
+                }
+                if(comparison == -1){
+                    printf("Pushing 0\n");
+                    pushFront(&ans, '0');
+                }
             }
 
             while(compareNumbers(tempDivident,tempDivisor) == 1){
@@ -381,10 +388,10 @@ Node * divide(List l1, List l2){
             else
                 count++;
 
-            // printf("\n Divident : " );
-            // displayNumber(tempDivident);
-            // printf(" Divisor: ");
-            // displayNumber(tempDivisor);
+            printf("\n Divident : " );
+            displayNumber(tempDivident);
+            printf(" Divisor: ");
+            displayNumber(tempDivisor);
             // printf(" count = %d\n ",count);
 
 
@@ -399,7 +406,13 @@ Node * divide(List l1, List l2){
             initList(&tempDivident);
 
             // printf("Answer : ");
-            pushFront(&ans,(count+'0'));
+
+            printf(" Pushing %c\n",count+'0');
+            if(count == 10){
+                pushFront(&ans, '1');
+                pushFront(&ans, '0');
+            }else
+                pushFront(&ans,(count+'0'));
             // displayNumber(ans);
             
             if(comparison == 0)

@@ -1,11 +1,11 @@
 #include "conversion.h"
-#include<signal.h>
+// #include<signal.h>
 
-int exitSignal = true;
+// int exitSignal = true;
 
-void sighandler(int){
-    exitSignal = false;
-}    
+// void sighandler(int){
+    // exitSignal = false;
+// }    
 
 int getSizeOfList(char * str){
     int size = 0;
@@ -73,7 +73,7 @@ int main(){
 
     char input[100];
 
-    while(exitSignal){
+    while(true){
     printf(">> ");
     int i = 0;
     char c;

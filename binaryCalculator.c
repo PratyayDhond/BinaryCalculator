@@ -319,51 +319,7 @@ Node * multiply(List l1, List l2){
 
 }
 
-
-Node * divi1de(List l1, List l2){
-    List ans;
-    initList(&ans);
-    if(l2 == NULL || l2->next == NULL|| isZero(l2)){
-        printf("Error, Divide by zero exception\n");
-        return NULL;
-    }
-
-    if(l1 == NULL || l1->next == NULL || isZero(l1) || compareNumbers(l1,l2) == -1){
-        pushFront(&ans,'0');
-        return ans;
-    }
-
-    if(compareNumbers(l1,l2) == 0){
-        pushFront(&ans,'1');
-        return ans;
-    }
-
-    List temp;
-    initList(&temp);
-    temp = add(temp,l2);
-
-    List currentDivident,currentDivisor;
-    initList(&currentDivident);
-    initList(&currentDivisor);
-    int count = 0;
-
-    reverseList(&l1->next);
-    reverseList(&l2->next);
-    displayList(l1);
-    displayList(l2);
-    
-    Node *p = l1->next;
-    Node *q = l2->next;
-
-    while(q){
-        pushFront(&currentDivisor,q->data);
-        q = q -> next;
-    }
-    return NULL;
-
-}
-
-Node * divide(List l1, List l2){
+Node * divide1(List l1, List l2){
     List ans;
     initList(&ans);
     if(l2 == NULL || l2->next == NULL|| isZero(l2)){
@@ -384,11 +340,14 @@ Node * divide(List l1, List l2){
     List temp;
     initList(&temp);
     temp = add(temp,l2);
+        
+        
         int count = 0;
-        int countSubsequentZeroes = 0;
+        long long countZeroes = 0;
         reverseList(&l1->next);
         Node * p = l1->next;
         Node * q = l2->next;
+        Node * s;
         List tempDivident;
         List tempDivisor;
         List remainder;
@@ -404,25 +363,28 @@ Node * divide(List l1, List l2){
                 pushFront(&tempDivident,p->data);
                 q = q -> next;
                 p = p -> next;
+                removeMSBZeroes(&tempDivident);
                 comparison = compareNumbers(tempDivident,tempDivisor);
                 if(comparison == 1){
                     break;
-                };
+                }
 
-                displayList(remainder);
-
-                if(comparison == -1 && p != NULL){
-                    // printf("Pushing 0 in comparison wala part\n");
+                if(p != NULL)
+                    if(p->data == '0')
+                        countZeroes++;
+                    else
+                        countZeroes = 0;
+            
+                if(comparison == -1){
+                    // printf("Pushing 0\n");
                     pushFront(&ans, '0');
-                    printf("\nAnswer : ");
-                    if(p -> next == NULL)
-                        break;
                 }
             }
 
-            removeMSBZeroes(&tempDivident);
+            // printf("\n\n Here : ");
+            // displayList(tempDivident);
 
-            if(p == NULL)
+            if(p == NULL && isZero(tempDivident) == true)
                 break;
 
             while(compareNumbers(tempDivident,tempDivisor) == 1){
@@ -438,32 +400,17 @@ Node * divide(List l1, List l2){
             else
                 count++;
 
-            printf("\n Divident : " );
-            displayNumber(tempDivident);
-            printf(" Divisor: ");
-            displayNumber(tempDivisor);
-            printf(" count = %d\n ",count);
-
-
-
             initList(&remainder);
             remainder = subtract(tempDivident,tempDivisor);
-            // printf("Remainder : ");
-            // displayNumber(remainder);
-            // printf("\n");
             destroyList(tempDivident);
             destroyList(tempDivisor);
             initList(&tempDivident);
 
-            // printf("Answer : ");
-
-            printf(" Pushing %c\n",count+'0');
             if(count == 10){
                 pushFront(&ans, '1');
                 pushFront(&ans, '0');
             }else
                 pushFront(&ans,(count+'0'));
-            // displayNumber(ans);
             
             if(comparison == 0)
                 count++;
@@ -478,47 +425,78 @@ Node * divide(List l1, List l2){
             }
             q = l2->next;
         }
-    removeMSBZeroes(&ans);
-    return ans;  
+        q = l2 -> next;
+        long long sizeOfDivisor = 0;
+        while(q){
+            sizeOfDivisor++;
+            q = q -> next;
+        }
+        // printf("Zeroes : %lld \n",countZeroes);
+        // printf("divisor size : %lld \n",sizeOfDivisor);
+
+        int countZeroesFlag = true;
+        if(countZeroes == sizeOfDivisor)
+            countZeroesFlag = false;
+        countZeroes = countZeroes / sizeOfDivisor;
+    
+        removeMSBZeroes(&ans);
+        // displayList(ans);
+        // printf("Zeroes to Remove : %lld\n",countZeroes);
+
+        List result;
+        initList(&result);
+        p = ans->next;
+        while(p){
+            while(countZeroesFlag && countZeroes-- > 0){
+                p = p -> next;
+                // printf("%lld ",countZeroes);
+            }
+            countZeroesFlag = false;
+            pushFront(&result,p->data);
+            p = p -> next;
+        }
+        reverseList(&result->next);
+        // displayList(result);
+
+    return result;  
 }
 
-// Node * divide(List l1, List l2){
-//     return betterDivide(l1,l2);
+Node * divide(List l1, List l2){
     
-//     if(l1 == NULL && l2 == NULL)
-//         return NULL;
-//     List ans;
-//     initList(&ans);
-//     if(l1 == NULL || isZero(l1)){
-//         pushFront(&ans, '0');
-//         return ans;
-//     }
-//     else if( l2 == NULL|| isZero(l2)){
-//         printf("Error, cannot divide by zero!\n");
-//         exit(0);
-//     }
+    if(l1 == NULL && l2 == NULL)
+        return NULL;
+    List ans;
+    initList(&ans);
+    if(l1 == NULL || isZero(l1)){
+        pushFront(&ans, '0');
+        return ans;
+    }
+    else if( l2 == NULL|| isZero(l2)){
+        printf("Error, cannot divide by zero!\n");
+        exit(0);
+    }
 
-//     int comparison = compareNumbers(l1,l2);
-//     char target = l1->data == '0' ? '1' : '0';
-//     List addOne;
-//     initList(&addOne);
-//     pushFront(&addOne,'1');
-//     if(comparison == 1){
-//          while(l1->data != target){
-//             l1 = subtract(l1,l2);
-//             ans = add(ans,addOne);
-//          }
-//          ans = subtract(ans,addOne);
-//          return ans;   
-//     }else if(comparison == -1){        
-//         pushFront(&ans, '0');
-//         return ans;
-//     }else{
-//         pushFront(&ans, '1');
-//         return ans;
-//     }
-//     return NULL;
-// }
+    int comparison = compareNumbers(l1,l2);
+    char target = l1->data == '0' ? '1' : '0';
+    List addOne;
+    initList(&addOne);
+    pushFront(&addOne,'1');
+    if(comparison == 1){
+         while(l1->data != target){
+            l1 = subtract(l1,l2);
+            ans = add(ans,addOne);
+         }
+         ans = subtract(ans,addOne);
+         return ans;   
+    }else if(comparison == -1){        
+        pushFront(&ans, '0');
+        return ans;
+    }else{
+        pushFront(&ans, '1');
+        return ans;
+    }
+    return NULL;
+}
 
 void initTemp(List* temp,List l1){
     initList(temp);
@@ -607,7 +585,7 @@ Node * mod(List l1, List l2){
         List quotient;
         initList(&quotient);
         quotient = divide(l1,l2);
-        reverseList(&l1->next); 
+        // reverseList(&l1->next); 
 
         displayList(l1);
         displayList(quotient);

@@ -84,6 +84,7 @@ void displayList(List l){
     
     if(l == NULL)
         return;
+
     Node *p = l;
     while(p){
         printf("%c",p -> data);
@@ -121,6 +122,10 @@ return;
 }
 
 void reverseList(List *l){
+
+    if(l == NULL)
+        return;
+
     Node * current = *l;
     Node * previous = NULL;
     Node * next = NULL;

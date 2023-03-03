@@ -143,7 +143,7 @@ int main(){
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);
     // displayPostfix(postfix);
-    printf("\n=");
+    printf("\n");
     displayNumber(evaluatePostfix(postfix));
     printf("\n");
     }

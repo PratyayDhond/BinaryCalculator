@@ -23,13 +23,13 @@ int getNumberOfLists(char * str){
             isNumberFlag = true;
         else{
             if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^'){
-                if(*(p+1) == '+' || *(p+1) == '-' || *(p+1) == '*' || *(p+1) == '/' || *(p+1) == '%' || *(p+1) == '(' || *(p+1) == ')' || *(p+1) == '^'){
-                    printf("Incorrect Syntax! More operators than required\n");
-                    exit(0);
-                }
+                // if(*(p+1) == '+' || *(p+1) == '-' || *(p+1) == '*' || *(p+1) == '/' || *(p+1) == '%' || *(p+1) == '(' || *(p+1) == ')' || *(p+1) == '^'){
+                    // printf("Incorrect Syntax! More operators than required\n");
+                    // exit(0);
+                // }
                 count++;
             }else{
-                printf("Incorrect Syntax! Invalid operator '%c' used\n",*p);
+                printf("Incorrect Syntax! Invalid operator \'%c\' used\n",(*p));
                 exit(0);
             }
         }

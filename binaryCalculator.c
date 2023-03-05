@@ -462,7 +462,8 @@ Node * divide1(List l1, List l2){
 }
 
 Node * divide(List l1, List l2){
-    
+    displayList(l1);
+    displayList(l2);
     if(l1 == NULL && l2 == NULL)
         return NULL;
     List ans;
@@ -478,6 +479,9 @@ Node * divide(List l1, List l2){
 
     int comparison = compareNumbers(l1,l2);
     char target = l1->data == '0' ? '1' : '0';
+    int sign = 1;
+    if(l1 -> data != l2 -> data)
+        sign = 0;
     List addOne;
     initList(&addOne);
     pushFront(&addOne,'1');
@@ -487,12 +491,14 @@ Node * divide(List l1, List l2){
             ans = add(ans,addOne);
          }
          ans = subtract(ans,addOne);
+         ans->data = sign;
          return ans;   
     }else if(comparison == -1){        
         pushFront(&ans, '0');
         return ans;
     }else{
         pushFront(&ans, '1');
+        ans->data = sign;
         return ans;
     }
     return NULL;

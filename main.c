@@ -123,22 +123,14 @@ int main(){
         }
         else{
             initList(&operators[operatorIndex]);
-            // while(!isdigit(*p)){
                 char c = *p;
-                // Skipping the 'Blank Spaces, by Taylor Swift' ;)
                     pushFront(&operators[operatorIndex],c);        
                 p++;
-                // the below lines of codes were needed for the while loop, not needed any
-                // if(*p == '\0')
-                    // break;
-            // }
-            // displayNumber(operators[operatorIndex]);
             createInfix(&infix, operators[operatorIndex]);
             operatorIndex++;
         }
     }
 
-    // displayInfix(infix);
     Postfix postfix;
     initPostfixList(&postfix,numberOfLists + numberOfOperators);
     postfix = createPostfix(infix);

@@ -32,17 +32,19 @@ return;
 }
 
 int isOperator(char x){
-    if( x == '^' || x == '*' || x == '/' || x == '+' || x == '-' || x == '%')
+    if( x == '^' || x == '*' || x == '/' || x == '+' || x == '-' || x == '%' || x == '>' || x == '<')
         return true;
     return false;
 }
 
 int priority(char x){
     if(x == '^')
-        return 3;
+        return 4;
     if(x == '*' || x == '/' || x =='%')
-        return 2;
+        return 3;
     if(x == '+' || x == '-')
+        return 2;
+    if(x == '>' || x == '<')
         return 1;
     return 0;
 }
@@ -154,6 +156,12 @@ List evaluatePostfix(Postfix postfix){
                             break;
                 case '%':
                             temp = mod(num1, num2);
+                            break;
+                case '>':   
+                            temp = greaterThan(num1,num2); 
+                            break;
+                case '<':
+                            temp = lessThan(num1,num2); 
                             break;
                 default :
                             printf("Incorrect operator detected. FORCE EXITTING!");

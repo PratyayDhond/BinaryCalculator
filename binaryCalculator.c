@@ -613,3 +613,30 @@ Node * mod(List l1, List l2){
 return result;
 }
 
+
+Node * greaterThan(List l1, List l2){
+    List result;
+    initList(&result);
+
+    int comparison = compareNumbers(l1,l2);
+
+    if(comparison == 1)
+        pushFront(&result,'1');
+    else
+        pushFront(&result,'0');
+    return result;
+}
+
+Node * lessThan(List l1, List l2){
+    List ans;
+    initList(&ans);
+
+    int comparison = compareNumbers(l1,l2);
+
+    if(comparison == -1)
+        pushFront(&ans,'1');
+    else
+        pushFront(&ans,'0');
+    
+    return ans;
+}

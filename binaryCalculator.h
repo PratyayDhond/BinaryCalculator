@@ -13,3 +13,5 @@ Node * multiply(List l1, List l2);
 Node * divide(List l1, List l2);
 Node * toThePower(List l1, List l2);
 Node * mod(List l1, List l2);
+Node * greaterThan(List l1, List l2);
+Node * lessThan(List l1, List l2);

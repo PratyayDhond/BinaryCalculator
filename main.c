@@ -22,7 +22,7 @@ int getNumberOfLists(char * str){
         if(isdigit(*p))
             isNumberFlag = true;
         else{
-            if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^'){
+            if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^' || *p == '>' || *p == '<'){
                 // if(*(p+1) == '+' || *(p+1) == '-' || *(p+1) == '*' || *(p+1) == '/' || *(p+1) == '%' || *(p+1) == '(' || *(p+1) == ')' || *(p+1) == '^'){
                     // printf("Incorrect Syntax! More operators than required\n");
                     // exit(0);
@@ -56,7 +56,7 @@ int getNumberOfOperators(char * input){
     char *p = input;
 
     while(*p != '\0'){
-        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^'){
+        if(*p  == '+' || *p == '-' || *p == '*' || *p == '/' || *p == '%' || *p == '(' || *p == ')' || *p == '^' || *p == '>' || *p == '<'){
             count++;
         }
         p++;

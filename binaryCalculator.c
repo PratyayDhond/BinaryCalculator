@@ -462,8 +462,8 @@ Node * divide1(List l1, List l2){
 }
 
 Node * divide(List l1, List l2){
-    displayList(l1);
-    displayList(l2);
+    // displayList(l1);
+    // displayList(l2);
     if(l1 == NULL && l2 == NULL)
         return NULL;
     List ans;
@@ -593,9 +593,9 @@ Node * mod(List l1, List l2){
         quotient = divide(l1,l2);
         // reverseList(&l1->next); 
 
-        displayList(l1);
-        displayList(quotient);
-        displayList(l2);
+        // displayList(l1);
+        // displayList(quotient);
+        // displayList(l2);
         return subtract(l1,multiply(quotient,l2));
 
         return result; 

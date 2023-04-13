@@ -581,24 +581,32 @@ Node * mod(List l1, List l2){
     int comparison = compareNumbers(l1,l2);
 
     if(comparison == 1){
-        // char target = l1 -> data == '0' ? '1' : '0';
+//         // char target = l1 -> data == '0' ? '1' : '0';
 
-        // while(l1 -> data != target){
+//         // while(l1 -> data != target){
             
-        //     l1 = subtract(l1,l2);
-        // }
-        // l1 = add(l1,l2);
+//         //     l1 = subtract(l1,l2);
+//         // }
+//         // l1 = add(l1,l2);
+//         List quotient;
+//         initList(&quotient);
+//         quotient = divide(l1,l2);
+//         quotient -> data = '1';
+//         // reverseList(&l1->next); 
+
+//         // displayList(l1);
+//         // displayList(quotient);
+//         // displayList(l2);
+//         return subtract(l1,multiply(quotient,l2));
+
+//         return result; 
+        
         List quotient;
         initList(&quotient);
         quotient = divide(l1,l2);
-        // reverseList(&l1->next); 
-
-        // displayList(l1);
-        // displayList(quotient);
-        // displayList(l2);
+        quotient -> data = '1';
         return subtract(l1,multiply(quotient,l2));
-
-        return result; 
+        
     }else if(comparison == -1){
         Node * q = l1->next;
         while(q){
